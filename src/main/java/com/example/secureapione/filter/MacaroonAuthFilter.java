@@ -63,7 +63,7 @@ public class MacaroonAuthFilter extends GenericFilterBean {
         if (validity) {
             chain.doFilter(request, response);
         } else {
-            
+
         }
     }
 
