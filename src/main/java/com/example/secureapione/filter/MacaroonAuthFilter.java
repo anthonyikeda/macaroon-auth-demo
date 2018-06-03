@@ -43,16 +43,13 @@ public class MacaroonAuthFilter extends GenericFilterBean {
 
         log.debug("Validating macaroon with secret '{}'", macConfig.getSecret());
 
-        boolean valid2 = verifier.isValid(macConfig.getSecret());
-        boolean validity = verifier.isValid("apples and oranges");
+        boolean valid = verifier.isValid(macConfig.getSecret());
 
-        if (! validity ) {
-            log.debug("Macaroon is invalid ({})", validity);
+        if (! valid ) {
+            log.debug("Macaroon is invalid ({})", valid);
         } else {
             log.debug("We have a valid macaroon");
         }
-
-        log.debug("validity {}, valid2 {}", validity, valid2);
 
         CaveatPacket[] packets = macaroon.caveatPackets;
 
@@ -60,7 +57,7 @@ public class MacaroonAuthFilter extends GenericFilterBean {
             log.debug("Caveat: {}", packet.getValueAsText());
         }
 
-        if (validity) {
+        if (valid) {
             chain.doFilter(request, response);
         } else {
 
