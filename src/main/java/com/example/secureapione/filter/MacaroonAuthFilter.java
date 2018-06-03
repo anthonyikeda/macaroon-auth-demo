@@ -60,7 +60,7 @@ public class MacaroonAuthFilter extends GenericFilterBean {
         if (valid) {
             chain.doFilter(request, response);
         } else {
-
+            log.debug("Not a valid token, we shouldn't let you in");
         }
     }
 
@@ -77,7 +77,7 @@ public class MacaroonAuthFilter extends GenericFilterBean {
         String authHeader = request.getHeader("Authorization");
 
         //Check to see if it's a macaroon
-        if (authHeader.indexOf("macaroon") >= 0) {
+        if (authHeader.contains("macaroon")) {
             log.debug("Macaroon found!");
             String serialized = authHeader.substring(authHeader.indexOf(" "), authHeader.length());
 
